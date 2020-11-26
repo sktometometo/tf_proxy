@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>tf_relay</name>
-  <version>0.0.0</version>
+  <version>0.0.1</version>
   <description>The tf_proxy package</description>
 
   <maintainer email="sktometometo@gmail.com">sktometometo</maintainer>
