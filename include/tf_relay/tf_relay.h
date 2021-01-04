@@ -49,6 +49,7 @@ namespace tf_relay {
             std::string output_frame_id_;
             std::string fixed_frame_id_;
             ros::Duration duration_timeout_;
+            bool identity_initialize_;
 
             bool initialized_;
 

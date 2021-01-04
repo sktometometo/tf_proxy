@@ -41,6 +41,11 @@ namespace tf_relay {
         }
         this->duration_timeout_ = ros::Duration(timeout);
 
+        this->identity_initialize_ = false;
+        if ( this->nh_private_.hasParam("identity_initialize") ) {
+            this->nh_private_.getParam("identity_initialize", this->identity_initialize_);
+        }
+
         /**
          *
          */
@@ -84,6 +89,18 @@ namespace tf_relay {
             }
         } catch (tf2::TransformException &ex) {
             ROS_DEBUG("%s",ex.what());
+            if ( this->identity_initialize_ ) {
+                this->msg_transform_.header.frame_id = this->fixed_frame_id_;
+                this->msg_transform_.child_frame_id = this->output_frame_id_;
+                this->msg_transform_.transform.translation.x = 0.0;
+                this->msg_transform_.transform.translation.y = 0.0;
+                this->msg_transform_.transform.translation.z = 0.0;
+                this->msg_transform_.transform.rotation.x = 0.0;
+                this->msg_transform_.transform.rotation.y = 0.0;
+                this->msg_transform_.transform.rotation.z = 0.0;
+                this->msg_transform_.transform.rotation.w = 1.0;
+                this->initialized_ = true;
+            }
         }
         if ( this->initialized_ ) {
             this->msg_transform_.header.stamp = ros::Time::now();
